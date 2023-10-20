@@ -1,6 +1,7 @@
-# SETTINGS
+# TAPRIO settings
 
 ## Background Knowledge
+//TODO
 ## Hardware
 The number of queues that can be used on TAPRIO depends on the number of queues available on the hardware. To check the number of queues available on a network card, where "ethx" is the name of the NIC, use the following command:
 ```

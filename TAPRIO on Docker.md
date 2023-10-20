@@ -1,6 +1,5 @@
 # TAPRIO on Docker
-一開始我們嘗試使用docker來進行測試，分別試了macOS跟Azure虛擬機Ubuntu20.04上用兩個docker進行模擬。兩做法最後都失敗。
-所以這邊只是記錄一些踩坑的過程。
+At the beginning, we attempted to use Docker for testing, trying it on macOS and an Azure virtual machine running Ubuntu 20.04 with two Docker containers for simulation. Both approaches eventually failed. So, this section serves as a record of the troubleshooting process. 
 ### Failed on MacOS
 Install docker on MacOS and try to add a IPVLAN
 ```

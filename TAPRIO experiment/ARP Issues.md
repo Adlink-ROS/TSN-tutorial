@@ -561,7 +561,7 @@ connect(3, {sa_family=AF_INET, sin_port=htons(55551), sin_addr=inet_addr("192.16
 setsockopt(3, SOL_SOCKET, SO_PRIORITY, [1], 4) = 0
 getsockopt(3, SOL_SOCKET, SO_PRIORITY, [1], [4]) = 0
 sendto(3, "\0\0\0\0\0\0\0\0\0\0\0\0", 12, MSG_NOSIGNAL, NULL, 0) = 12
-# 最後一行重複很多
+# the last line repeats
 ```
 
 ## check route

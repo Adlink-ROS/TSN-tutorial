@@ -1,5 +1,5 @@
 # TSN-tutorial
-We tried several environment configurations for testing TAPRIO, and the following links document the process of our attempts. In the end, only [TAPRIO on computer with Intel Corporation I210 Gigabit] was successful, and it's the configuration we've been using to date.
+We tried several environment configurations for testing TAPRIO, and the following links document the process of our attempts. In the end, only [TAPRIO on computer with Intel Corporation I210 Gigabit] works, and it's the configuration we've been using to date.
 
 [TAPRIO settings](TAPRIO%20settings.md)
 

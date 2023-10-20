@@ -42,8 +42,10 @@ The issue was ultimately resolved by changing the network card to a different sl
 
 ### socket-priority experiment on 2023/08/11 and 2023/08/18
 **Later, we discovered that the errors encountered that day were due to the failure to enable priority 0, causing ARP packets not to be transmitted. These are the experimental log.**
+
 [ARP issues](./TAPRIO%20experiment/ARP%20Issues.md)
 
 ### Calculate RTT
 **We use RTT to verify whether the queue's activation and latency behave as expected.**
+
 [Round Trip Time](./TAPRIO%20experiment/Round%20Trip%20Time.md)

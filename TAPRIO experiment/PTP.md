@@ -70,5 +70,5 @@ sudo ptp4l -i enp3s0 -m -H -s
 TSN system requires PHC synchronization.
 To synchronize the time obtained through the PTP protocol with the system, execute the `phc2sys` command.
 
-REFERRENCE
+REF: 
 [Synchronizing Time with Linux* PTP](https://tsn.readthedocs.io/timesync.html)

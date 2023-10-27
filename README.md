@@ -1,5 +1,7 @@
 # Time-Sensitive Network Tutorial
 
+Authors: Chung-Chi Wang, Lin Hsiang-Jui, Chengying Kuo
+
 This tutorial helps you enable Time-Sensitive Network (TSN) on Linux
 in practice. It consists of two parts. One is to enable applications
 to mark priority numbers on packets to be sent. The second is to
@@ -10,7 +12,7 @@ interfaces are prioritized to achieve bounded-time delivery.
 
 - Using Socket Priorities in Applications
   - [Socket Priority on Applications](socket-priority.md)
-  - [Priority Translation](socket-priority.md)
+  - [Priority Translation](priority-translation.md)
 
 - Network Device Configuration
   - [TAPRIO settings](TAPRIO%20settings.md)

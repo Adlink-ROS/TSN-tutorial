@@ -18,10 +18,10 @@ ethtool -l ethx
 ### Why VLAN
 
 In Linux, the implementation of qdisc is based on reading a data
-structure called the Socket Buffer (sk_buff). The system reads the
+structure called the Socket Buffer (sk\_buff). The system reads the
 priority value from skb->priority. This means that regardless of the
 type of packet being transmitted, once it's processed (e.g., by
-functions like ip_rcv()), it will be directly mapped to the skb
+functions like ip\_rcv()), it will be directly mapped to the skb
 structure. It is speculated that both IPv4 Differentiated Services
 Code Point (DSCP) and 802.1Q VLAN Priority Code Point (PCP) will be
 mapped to skb->priority.
@@ -29,7 +29,7 @@ mapped to skb->priority.
 It's important to note that reading priority does not necessarily
 require the use of VLAN, but 802.1Q uses VLAN for this
 purpose. Therefore, we configure the relationship between VLAN egress
-PCP and the SO_PRIORITY value.
+PCP and the SO\_PRIORITY value.
 
 ```sh
 sudo ip link set dev vlan1 type vlan egress 0:0 1:1 2:2 3:3 4:4 5:5 6:6 7:7
@@ -80,7 +80,7 @@ sudo tc qdisc replace dev enp3s0 parent root handle 100 taprio \
      clockid CLOCK_TAI
 ```
 
-num_tc: number of traffic class
+num\_tc: number of traffic class
 map: The relationship between Linux priority and traffic class.
 
 
@@ -99,7 +99,9 @@ contiguous range of queues.**  There are two modes available,0x1,
 0x2. Enabling the execution of the Task Admission Control (TAS)
 functionality either in software or hardware.
 
-In one of the examples provided in the documentation, there is a configuration where flows with different priorities are directed to the same queue and executed in software. 
+In one of the examples provided in the documentation, there is a
+configuration where flows with different priorities are directed to
+the same queue and executed in software.
 
 ```sh
 # tc qdisc replace dev eth0 parent root handle 100 taprio \

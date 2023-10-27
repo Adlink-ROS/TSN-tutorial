@@ -107,7 +107,7 @@ Get error
 RTNETLINK answers: Operation not permitted
 ```
 
-This error is due to privilege. Add --cap-add=NET_ADMIN.
+This error is due to privilege. Add --cap-add=NET\_ADMIN.
 
 ```sh
 docker run --net=db_net --cap-add=NET_ADMIN --name=cherry -itd fruits:1.0 /bin/sh

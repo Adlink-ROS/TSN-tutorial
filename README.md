@@ -9,10 +9,9 @@ configure scheduling policies on ingress and egress network devices on
 Linux. In this way, the packets with priority marks passing by these
 interfaces are prioritized to achieve bounded-time delivery.
 
-
 - Using Socket Priorities in Applications
   - [Socket Priority on Applications](socket-priority.md)
-  - [Priority Translation](priority-translation.md)
+  - [VLAN and Priority Translation](priority-translation.md)
 
 - Network Device Configuration
   - [TAPRIO settings](TAPRIO%20settings.md)

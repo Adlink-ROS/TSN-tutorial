@@ -44,7 +44,7 @@ setsockopt(fd, Priority, 6)?;
 ```
 
 
-## The Effect Socket Priority and Mapping
+## The Effect of Socket Priority and Mapping
 
 The socket priority number ranges from 0 to 15. The packets with
 higher priority number are usually processed first, depending on the

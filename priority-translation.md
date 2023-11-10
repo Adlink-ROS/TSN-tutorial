@@ -154,6 +154,21 @@ sudo ip link \
     egress 0:0 1:1 2:2 3:3 4:4 5:5 6:6 7:7
 ```
 
+To testify our settings, we run the socket priority testing program
+from the previous section and set the sender priority to 6. Run the
+`tcpdump` packet sniffer and packets captured will show that PCP=6.
+
+(default value of pcp is 0)
+
+
+```
+18:06:30.891525 08:26:97:f7:49:c5 (oui Unknown) > 08:26:97:f7:49:c9 (oui Unknown), ethertype 802.1Q (0x8100), length 2966: vlan 1, p 6, ethertype IPv4 (0x0800), (tos 0x0, ttl 64, id 23093, offset 0, flags [DF], proto TCP (6), length 2948)
+    192.168.1.2.36196 > ros-RSK.55555: Flags [P.], cksum 0x8eca (incorrect -> 0x27f2), seq 76361265:76364161, ack 0, win 502, options [nop,nop,TS val 3959431146 ecr 1510782482], length 2896
+```
+
+
+
+
 ## A Little Summary
 
 This section brought you to set up a VLAN device and enable the

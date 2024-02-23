@@ -1,14 +1,11 @@
 # Socket Priority on Applications
 
-In this TSN network, the application is responsible for providing
-desired priority on data packets. The standard method is to configure
-the `SO_PRIORITY` option on sockets using the `setsockopt` system
-call. Here are C and Rust examples.
+In this TSN network, the application is responsible for providing desired priority on data packets.
+The standard method is to configure the `SO_PRIORITY` option on sockets using the `setsockopt` system call.
+Here are C and Rust examples.
 
-In the C programming language, the socket is represented by a file
-descriptor. The file descriptor and the priority number are provided
-to `setsockopt()`.
-
+In the C programming language, the socket is represented by a file descriptor.
+The file descriptor and the priority number are provided to `setsockopt()`.
 
 ```c
 #include <sys/socket.h>
@@ -22,11 +19,8 @@ int ret = setsockopt(fd, SOL_SOCKET, SO_PRIORITY, &priority, sizeof(priority));
 if (ret < 0) { /* error */ }
 ```
 
-In the Rust programming language, a TCP connection is created by a
-`TcpStream` and the underlying file descriptor is obtained from the
-stream. We call the `setsockopt()` from the
-[nix](https://crates.io/crates/nix) library to configure the socket
-priority.
+In the Rust programming language, a TCP connection is created by a `TcpStream` and the underlying file descriptor is obtained from the stream.
+We call the `setsockopt()` from the [nix](https://crates.io/crates/nix) library to configure the socket priority.
 
 ```rust
 use nix::sys::socket::{sockopt::Priority, getsockopt, setsockopt};
@@ -46,15 +40,10 @@ setsockopt(fd, Priority, 6)?;
 
 ## The Effect of Socket Priority and Mapping
 
-The socket priority number ranges from 0 to 15. The packets with
-higher priority number are usually processed first, depending on the
-actual queuing policies on the selected network device. Setting a
-priority greater than 6 requires the root permission, or
-`CAP_NET_ADMIN` capability to be precise.
+The socket priority number ranges from 0 to 15.
+The packets with higher priority number are usually processed first, depending on the actual queuing policies on the selected network device. Setting a priority greater than 6 requires the root permission, or `CAP_NET_ADMIN` capability to be precise.
 
-The socket priority number is valid only within the Linux system. The
-ingress or egress network devices are responsible for the translation
-among the socket priorities and the _network priorities_. The network
-priority could be the _Priority code point_ (PCP) field in the VLAN
-header, or the _Type of Service_ field in the IPv4 header. The actual
-representation depends on the configuration of the network device.
+The socket priority number is valid only within the Linux system.
+The ingress or egress network devices are responsible for the translation among the socket priorities and the _network priorities_.
+The network priority could be the _Priority code point_ (PCP) field in the VLAN header, or the _Type of Service_ field in the IPv4 header.
+The actual representation depends on the configuration of the network device.

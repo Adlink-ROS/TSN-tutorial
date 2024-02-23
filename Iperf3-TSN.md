@@ -17,9 +17,8 @@ The packet is sent in TCP by default, use the option `--u` to send in UDP.
 ### Settings
 Two computers are connected via VLAN on their respective Controller I225-V network cards. This is a network card that supports hardware TSN (Time-Sensitive Networking) functionality.  For the VLAN settings, check [VLAN and Priority Translation](https://github.com/Adlink-ROS/TSN-tutorial/blob/main/priority-translation.md).One computer serves as the server, and the other as the client.
 
-
 ### Experiment 
-By default, iperf3 sends packets from the client to the server. Using the --r option reverses this behavior. Therefore, when collecting data, there are a few points to note:
+By default, iperf3 sends packets from the client to the server. Using the `--r` option reverses this behavior. Therefore, when collecting data, there are a few points to note:
 
 1. Observe the data from the receiver.
 2. TAPRIO settings are configured on the sender.

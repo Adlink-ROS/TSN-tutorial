@@ -26,9 +26,7 @@ By default, iperf3 sends packets from the client to the server. Using the --r op
 Without reverse option, client->server, UDP
 ##### Client 
 ```
-for p in {1..3}; do
-    ./src/iperf3 -u -c 192.168.1.1 -p $((55550 + p)) -b10G -l1472 -t100 --sock-prio $p > ./client_log/p${p}_client.out &
-done
+seq 1 3 | parallel -j0 './src/iperf3 -c 192.168.1.1 -p 5555{} -b10G  -l1472 -t100 --sock-prio {} >./client_log/p{}_client.out'
 
 ```
 Set TAPRIO on client
@@ -47,7 +45,7 @@ The TAPRIO configuration specifies that sockets 0 to 3 will correspond to queues
 In the "sched-entry" field, 03, 05, 09 respectively represent the simultaneous opening of gate 1, 2, and 3 with gate 0. The subsequent numbers indicate the duration for which each gate remains open within one cycle. In this example, the gates of the queues corresponding to flows with priorities 1, 2, and 3 will open with a ratio of 1:3:5.
 ##### Server 
 ```
-seq 1 3 | parallel -j0 './src/iperf3 -c 192.168.1.1 -p 5555{} -b10G  -l1472 -t100 --sock-prio {} >./client_log/p{}_client.out'
+seq 1 3 | parallel -j0 'iperf3 -s -p 5555{} >./server_log/p{}_server.out'
 ```
 
 

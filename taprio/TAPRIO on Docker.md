@@ -1,10 +1,9 @@
 # TAPRIO on Docker
 
-At the beginning, we attempted to use Docker for testing, trying it on
-macOS and an Azure virtual machine running Ubuntu 20.04 with two
-Docker containers for simulation. Both approaches eventually
-failed. So, this section serves as a record of the troubleshooting
-process.
+At the beginning, we attempted to use Docker for testing,
+trying it on macOS and an Azure virtual machine running Ubuntu 20.04 with two Docker containers for simulation.
+Both approaches eventually failed.
+So, this section serves as a record of the troubleshooting process.
 
 ## Failed on MacOS
 
@@ -22,15 +21,13 @@ docker network create -d ipvlan --subnet=192.168.1.0/24 --gateway=192.168.1.1 -o
 #Error response from daemon: -o parent interface was not found on the host: en0
 ```
 
-The reason might be because Docker Desktop on MacOS runs a hidden
-Linux VM, and that might also make the macvlan driver tricky to set
-up.
+The reason might be because Docker Desktop on MacOS runs a hidden Linux VM,
+and that might also make the macvlan driver tricky to setup.
 
 ### Ubuntu20.04
 
-The goal is to create two Docker containers that communicate using
-ipvlan. On the virtual network interface inside the containers,
-configure tc qdisc taprio.
+The goal is to create two Docker containers that communicate using ipvlan.
+On the virtual network interface inside the containers, configure tc qdisc taprio.
 
 - Set IPVALN
 
@@ -50,10 +47,9 @@ docker network create -d ipvlan \
 docker run --net=db_net --name=apple -itd ubuntu:20.04 /bin/sh
 ```
 
-If configuring the network only on ipvlan, the containers will not be
-able to connect to the external network. Therefore, the "docker
-network connect" command is used to modify the available networks for
-a container (by default, it is set to bridge).
+If configuring the network only on ipvlan, the containers will not be able to connect to the external network.
+Therefore, the "docker network connect" command is used to modify the available networks for a container
+(by default, it is set to bridge).
 
 ```sh
 docker network connect bridge banana
@@ -121,7 +117,6 @@ RTNETLINK answers: Operation not supported
 
 Other qdisc command can run properly, but taprio and mqprio doesn't work.
 
-
 check channel parameter:
 
 ```sh
@@ -136,8 +131,7 @@ Cannot get device channel parameters
 : Operation not supported
 ```
 
-**Taprio can be executed on the host, but not on the bridge or ipvlan
-in the container.**
+**Taprio can be executed on the host, but not on the bridge or ipvlan in the container.**
 
 Host
 
@@ -166,10 +160,9 @@ eth0: Caught tx_queue_len zero misconfig
 eth1: Caught tx_queue_len zero misconfig
 ```
 
-But doesn't show up every time.  Another weird thing is that TX of
-bridge is actually not zero, and the TX of host is zero.
+But doesn't show up every time.
+Another weird thing is that TX of bridge is actually not zero, and the TX of host is zero.
 
-Need ethtool to fix the setting of TX, but it seems like the driver of
-ipvlan doesn't support this.
+Need ethtool to fix the setting of TX, but it seems like the driver of ipvlan doesn't support this.
 
 *I guess try other container or method might be easier.*

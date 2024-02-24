@@ -1,4 +1,5 @@
 # Experiment on 2023/08/30
+
 **These are the process of designing the method to calculate RTT involved adding timestamps to the packets to measure the RTT of the packets.**
 
 ## Caculate round trip time of packets
@@ -7,7 +8,9 @@ payload size: 12B
 period: 200us
 
 
-I calculate the 'time difference between sending and receiving the next packet.' However, this doesn't account for issues like packet loss or excessive delay.
+I calculate the 'time difference between sending and receiving the next packet.'
+However, this doesn't account for issues like packet loss or excessive delay.
+
 ## case1 (default)
 P1:
 Average time: 55.928µs
@@ -116,7 +119,8 @@ Average time: 69.43µs
 Minimum time: 58.663µs
 Maximum time: 159.281µs
 ```
-It's possible that the first two cores have other processes (confirmed with htop that cores 0 and 1 are busier). However, even when using idle cores, the issue of fluctuating transfer rates persists.
+It's possible that the first two cores have other processes (confirmed with htop that cores 0 and 1 are busier).
+However, even when using idle cores, the issue of fluctuating transfer rates persists.
 
 ## 2 open at a time
 When two processes with lower priority are running concurrently, the maximum time is significantly higher, indicating a competitive situation.
@@ -132,7 +136,8 @@ Maximum time: 182.886µs
 ```
 
 ## Accept the unexpected result
-To mitigate the fluctuations, we increased the time slot interval to the extent that these fluctuations can be ignored. The transmission period is 200us, and the sched-entry is in ns.
+To mitigate the fluctuations, we increased the time slot interval to the extent that these fluctuations can be ignored.
+The transmission period is 200us, and the sched-entry is in ns.
 ```
 sudo tc qdisc replace dev enP5p1s0 parent root handle 100 taprio \
                      num_tc 4 \
@@ -170,7 +175,10 @@ This isn't right because each priority should have to wait for 3.2ms before it g
 # Experiment on 2023/09/22
 Switched to two new servers with a direct connection.
 
-After transitioning to the new host, it appears that iperf3 is quite stable. However, it's essential to note that iperf measures the traffic within a 1-second window, so it may not always provide a reliable reference. When observing the round-trip time, it remains unstable and, in some cases, even worse than before.
+After transitioning to the new host, it appears that iperf3 is quite stable.
+However, it's essential to note that iperf measures the traffic within a 1-second window,
+so it may not always provide a reliable reference.
+When observing the round-trip time, it remains unstable and, in some cases, even worse than before.
 
 Settings:
 - Neither end has taprio configuration.
@@ -219,7 +227,9 @@ Minimum time: 91.797µs
 Maximum time: 335.581µs
 ```
 
-These results are similar to using ping (rtt min/avg/max/mdev = 0.118/0.224/0.868/0.056 ms). The extreme fluctuations have disappeared, suggesting that the previous sending rate was too high. However, it is not logical that reducing the number of packets leads to an increase in average round-trip time.
+These results are similar to using ping (rtt min/avg/max/mdev = 0.118/0.224/0.868/0.056 ms).
+The extreme fluctuations have disappeared, suggesting that the previous sending rate was too high.
+However, it is not logical that reducing the number of packets leads to an increase in average round-trip time.
 
 Using a period of 1ms as a compromise:
 
@@ -237,7 +247,9 @@ Minimum time: 54.235µs
 Maximum time: 336.173µs
 ```
 
-Similar to the results obtained using ping (rtt min/avg/max/mdev = 0.118/0.224/0.868/0.056 ms), the extreme cases have disappeared (there are no millisecond-level values). This suggests that the original packet transmission rate may have been too dense. However, it's not reasonable that reducing the number of packets results in an increase in the average round-trip time.
+Similar to the results obtained using ping (rtt min/avg/max/mdev = 0.118/0.224/0.868/0.056 ms), the extreme cases have disappeared (there are no millisecond-level values).
+This suggests that the original packet transmission rate may have been too dense.
+However, it's not reasonable that reducing the number of packets results in an increase in the average round-trip time.
 
 As a compromise, with a period of 1ms:
 
@@ -264,7 +276,8 @@ When using ping (default), the round-trip times are consistently around 0.2ms, a
 64 bytes from 192.168.1.2: icmp_seq=8 ttl=64 time=0.205 ms
 ```
 
-Adding "Packet Spacing Time" at the server end involves subtracting the timestamps of two consecutive packets. Here are the settings:
+Adding "Packet Spacing Time" at the server end involves subtracting the timestamps of two consecutive packets.
+Here are the settings:
 
 Neither end has taprio configuration.
 Payload size: 64 bytes
@@ -275,9 +288,9 @@ Minimum time: 121.67µs
 Maximum time: 242.683µs
 ```
 
-Adding "Receive Time" at the server end involved an attempt to serialize Instant data into packets. However, the underlying infrastructure for this type of operation is not implemented. Several methods found on the internet are based on system clocks and are not suitable for use between two separate computers.
-
-
+Adding "Receive Time" at the server end involved an attempt to serialize Instant data into packets.
+However, the underlying infrastructure for this type of operation is not implemented.
+Several methods found on the internet are based on system clocks and are not suitable for use between two separate computers.
 
 ### TAPRIO
 ```
@@ -305,7 +318,8 @@ Average time: 187.496µs
 Minimum time: 153.184µs
 Maximum time: 218.958µs
 ```
-Disabling tc1 confirmed that it doesn't impact the results. This could be due to the packet sending interval being too long.
+Disabling tc1 confirmed that it doesn't impact the results.
+This could be due to the packet sending interval being too long.
 ```
 period=1ms
 priority=1
@@ -340,7 +354,5 @@ Average time: 64.732µs
 Minimum time: 51.079µs
 Maximum time: 272.413µs
 ```
-Trying priority set to 2 yielded similar results. Additionally, attempting ping (equivalent to priority=0) showed the same results, but ping behaved normally.
-
-
-
+Trying priority set to 2 yielded similar results.
+Additionally, attempting ping (equivalent to priority=0) showed the same results, but ping behaved normally.

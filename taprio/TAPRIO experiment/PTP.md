@@ -1,5 +1,6 @@
 # PTP
-To use gPTP (Generalized Precision Time Protocol), you need to configure PTP first. In Linux, a commonly used tool is ptp4l.
+To use gPTP (Generalized Precision Time Protocol), you need to configure PTP first.
+In Linux, a commonly used tool is ptp4l.
 
 Install the ptpd package:
 ```
@@ -70,5 +71,4 @@ sudo ptp4l -i enp3s0 -m -H -s
 TSN system requires PHC synchronization.
 To synchronize the time obtained through the PTP protocol with the system, execute the `phc2sys` command.
 
-REF: 
-[Synchronizing Time with Linux* PTP](https://tsn.readthedocs.io/timesync.html)
+REF: [Synchronizing Time with Linux* PTP](https://tsn.readthedocs.io/timesync.html)

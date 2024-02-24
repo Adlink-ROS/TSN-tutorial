@@ -2,9 +2,9 @@
 
 This also failed.
 
-Create two Azure VMs (tico, tico2) and place them in the same VLAN
-subnet.  tico is the client, tico2 is server. Execute on the client
-port:
+Create two Azure VMs (tico, tico2) and place them in the same VLAN subnet.
+tico is the client, and tico2 is server.
+Execute on the client port:
 
 ```sh
 sudo tc qdisc replace dev eth0 parent root handle 100 taprio \
@@ -43,9 +43,8 @@ TCP window size:  230 KByte (default)
 
 ```
 
-Either add tc or not the three priority remains the same.  This is
-because `queues 1@0 1@0 1@0` means the three priority goes in the same
-queue.
+Either add tc or not the three priority remains the same.
+This is because `queues 1@0 1@0 1@0` means the three priority goes in the same queue.
 
 ```sh
 sudo tc qdisc replace dev eth0 parent root handle 100 taprio \
@@ -71,7 +70,7 @@ Changing the traffic mapping of a running schedule is not supported.
 Just delete the qdisc setting.
 
 ```
- Invalid traffic class in priority to traffic class mapping.
+Invalid traffic class in priority to traffic class mapping.
 ```
 
 This is because *num_tc 3* so the number of map can only set to 2.

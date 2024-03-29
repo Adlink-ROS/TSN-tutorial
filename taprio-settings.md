@@ -20,7 +20,7 @@ Run this command to check the number of queues available on a network card, wher
 ethtool -l enp2s0f1
 ```
 
-It shows 16 avaible queues for example.
+It shows 16 availble queues for example.
 
 ```
 Channel parameters for enp2s0f1:
@@ -73,7 +73,7 @@ where
 
 
 - `queue`: The queues in "count@offset" notation specifies the queue
-  range for each traffic class. According to the the official
+  range for each traffic class. According to the official
   documents, the ranges should not overlap and must be a contiguous
   range of queues.
 
@@ -85,7 +85,7 @@ In one of the examples provided in the documentation,
 there is a configuration where flows with different priorities are directed to the same queue and executed in software.
 
 ```sh
-# tc qdisc replace dev eth0 parent root handle 100 taprio \
+sudo tc qdisc replace dev eth0 parent root handle 100 taprio \
                      num_tc 3 \
                      map 2 2 1 0 2 2 2 2 2 2 2 2 2 2 2 2 \
                      queues 1@0 1@0 1@0 \

@@ -11,13 +11,14 @@ It consists of two parts.
 
 In this way, the packets with priority marks passing by these interfaces are prioritized to achieve bounded-time delivery.
 
-- [Socket Priority on Applications](socket-priority.md)
-- [VLAN and Priority Translation](priority-translation.md)
-- [TAPRIO settings](taprio-settings.md)
-- [iPerf3 TSN Tutorial](iperf3-tsn.md)
-
 Contents
 --------
 
 .. toctree::
+    :maxdepth: 3
 
+    iperf3-tsn
+    taprio-settings
+    priority-translation
+    socket-priority
+    taprio/index

@@ -26,8 +26,8 @@ Use two computers both with NIC I210 in b04.
 
 Have 4 channels.
 
-Some issue during experiment (一些坑)
--------------------------------------
+Some issue during experiment
+----------------------------
 
 Cannot detect interface
 ^^^^^^^^^^^^^^^^^^^^^^^

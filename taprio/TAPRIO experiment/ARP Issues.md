@@ -326,9 +326,9 @@ All four interfaces have a small amount of traffic between 192.168.1.2 → 192.1
 
 
 
-# trace
-## S 02
-### Error: No route to host (os error 113)
+## trace
+### S 02
+*Error: No route to host (os error 113)*
 ```
 % time     seconds  usecs/call     calls    errors syscall
 ------ ----------- ----------- --------- --------- ----------------
@@ -366,7 +366,7 @@ All four interfaces have a small amount of traffic between 192.168.1.2 → 192.1
 100.00    0.078211                   175        10 total
 
 ```
-### Error: Connection timed out (os error 110)
+*Error: Connection timed out (os error 110)*
 ```
 % time     seconds  usecs/call     calls    errors syscall
 ------ ----------- ----------- --------- --------- ----------------
@@ -404,8 +404,8 @@ All four interfaces have a small amount of traffic between 192.168.1.2 → 192.1
 100.00    0.071706                   175        10 total
 ```
 
-## S 03
-### can pass p0 p1
+### S 03
+can pass p0 p1
 ```
 % time     seconds  usecs/call     calls    errors syscall
 ------ ----------- ----------- --------- --------- ----------------
@@ -619,7 +619,7 @@ traceroute to 192.168.1.1 (192.168.1.1), 30 hops max, 60 byte packets
 看不出個所以然
 
 
-## queues的設定
+## Queue Settings
 ```
 sudo tc qdisc replace dev enP5p1s0 parent root handle 100 taprio \
                      num_tc 4 \
@@ -704,7 +704,7 @@ unsigned int last = qopt->offset[i] + qopt->count[i];
 implies whether one traffic class (tc) can correspond to multiple queues.
 
 
-### Wierd
+### Something Wierd
 ```
 sudo tc qdisc replace dev enP5p1s0 parent root handle 100 taprio \
                      num_tc 4 \
@@ -733,9 +733,9 @@ sudo tc qdisc replace dev enP5p1s0 parent root handle 100 taprio \
 # tc0->q0, q1
 # tc1->q2
 # tc2->q3
-# tc3->q4 (???) we should on have 4 queues
+# tc3->q4 (???) we should only have 4 queues
 ```
-### Wrong interface？？？
+### Wrong interface？
 ```
 sudo ethtool -l enP4p4s0
 Channel parameters for enP4p4s0:

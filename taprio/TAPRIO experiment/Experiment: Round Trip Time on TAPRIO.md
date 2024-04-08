@@ -1,8 +1,9 @@
-# Experiment on 2023/08/30
+# Experiment: Round Trip Time on TAPRIO
+## Experiment on 2023/08/30
 
 **These are the process of designing the method to calculate RTT involved adding timestamps to the packets to measure the RTT of the packets.**
 
-## Caculate round trip time of packets
+### Caculate round trip time of packets
 
 payload size: 12B 
 period: 200us
@@ -11,7 +12,7 @@ period: 200us
 I calculate the 'time difference between sending and receiving the next packet.'
 However, this doesn't account for issues like packet loss or excessive delay.
 
-## case1 (default)
+#### case1 (default)
 P1:
 Average time: 55.928µs
 Minimum time: 10.4µs
@@ -66,7 +67,7 @@ Minimum time: 53.017µs
 Maximum time: 485.041µs
 
 
-## case2
+### case2
 Change status every 600us
 ```
 sudo tc qdisc replace dev enP5p1s0 parent root handle 100 taprio \
@@ -86,10 +87,9 @@ The delay has hardly changed; the interval is too large.
 
 We keep encountering 'Error: Connection reset by peer (OS error 104).
 
-# Experiment on 2023/09/15
+
 **The transfer rate of the process kept changing, and we attempted to isolate this issue. After two weeks of unsuccessful troubleshooting, we eventually resolved it by directly replacing two servers.**
-# 202309015meeting
-## One process at a time
+### One process at a time
 Only one process is running at a time to ensure that the fluctuating transfer rate is not caused by competing processes.
 ```
 Average time: 68.97µs
@@ -98,7 +98,7 @@ Maximum time: 166.001µs
 ```
 Not working.
 
-## taskset
+### taskset
 **Excluding the possibility of it being caused by CPU context switching.**
 task -c 0
 even worse
@@ -122,7 +122,7 @@ Maximum time: 159.281µs
 It's possible that the first two cores have other processes (confirmed with htop that cores 0 and 1 are busier).
 However, even when using idle cores, the issue of fluctuating transfer rates persists.
 
-## 2 open at a time
+### 2 open at a time
 When two processes with lower priority are running concurrently, the maximum time is significantly higher, indicating a competitive situation.
 ```
 Average time: 72.215µs
@@ -135,7 +135,7 @@ Minimum time: 59.612µs
 Maximum time: 182.886µs
 ```
 
-## Accept the unexpected result
+### Accept the unexpected result
 To mitigate the fluctuations, we increased the time slot interval to the extent that these fluctuations can be ignored.
 The transmission period is 200us, and the sched-entry is in ns.
 ```
@@ -172,7 +172,6 @@ Maximum time: 1.900506ms
 This isn't right because each priority should have to wait for 3.2ms before it gets its turn.
 
 
-# Experiment on 2023/09/22
 Switched to two new servers with a direct connection.
 
 After transitioning to the new host, it appears that iperf3 is quite stable.
@@ -292,7 +291,7 @@ Adding "Receive Time" at the server end involved an attempt to serialize Instant
 However, the underlying infrastructure for this type of operation is not implemented.
 Several methods found on the internet are based on system clocks and are not suitable for use between two separate computers.
 
-### TAPRIO
+#### TAPRIO
 ```
 sudo tc qdisc replace dev enp3s0 parent root handle 100 taprio \
      num_tc 3 \
@@ -305,9 +304,9 @@ sudo tc qdisc replace dev enp3s0 parent root handle 100 taprio \
      flags 0x1 \
      txtime-delay 200000 \
      clockid CLOCK_TAI
-# All in multiples of 100us
-# p1 should be blocked for 1100us
 ```
+*All in multiples of 100us*
+*p1 should be blocked for 1100us*
 period=200ms
 priority=1
 payload_size=64B
@@ -342,13 +341,13 @@ sudo tc qdisc replace dev enp3s0 parent root handle 100 taprio \
      flags 0x1 \
      txtime-delay 200000 \
      clockid CLOCK_TAI
-# All in multiples of 1ms
-# p1 should be blocked for 11ms
 ```
+*All in multiples of 1ms*
+*p1 should be blocked for 11ms*
 period=1ms
 priority=1
 payload_size=64B
-# unexpectedly faster
+*unexpectedly faster*
 ```
 Average time: 64.732µs
 Minimum time: 51.079µs

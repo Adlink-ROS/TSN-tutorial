@@ -411,13 +411,12 @@ The client doesn't report errors or display anything.
 All four interfaces have a small amount of traffic between 192.168.1.2 → 192.168.1.1 and 192.168.1.1 → 192.168.1.2.
 
 trace
-=====
+-----
 
 S 02
-----
+^^^^
 
-Error: No route to host (os error 113)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+*Error: No route to host (os error 113)*
 
 .. code-block::
 
@@ -456,8 +455,7 @@ Error: No route to host (os error 113)
    ------ ----------- ----------- --------- --------- ----------------
    100.00    0.078211                   175        10 total
 
-Error: Connection timed out (os error 110)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+*Error: Connection timed out (os error 110)*
 
 .. code-block::
 
@@ -497,10 +495,9 @@ Error: Connection timed out (os error 110)
    100.00    0.071706                   175        10 total
 
 S 03
-----
+^^^^
 
 can pass p0 p1
-^^^^^^^^^^^^^^
 
 .. code-block::
 
@@ -751,8 +748,8 @@ S 03
 
 看不出個所以然
 
-queues的設定
-------------
+Queue Settings
+--------------
 
 .. code-block::
 
@@ -843,8 +840,8 @@ It's worth noting that this line:
 
 implies whether one traffic class (tc) can correspond to multiple queues.
 
-Wierd
-^^^^^
+Something Wierd
+^^^^^^^^^^^^^^^
 
 .. code-block::
 
@@ -876,10 +873,10 @@ Wierd
    # tc0->q0, q1
    # tc1->q2
    # tc2->q3
-   # tc3->q4 (???) we should on have 4 queues
+   # tc3->q4 (???) we should only have 4 queues
 
-Wrong interface？？？
-^^^^^^^^^^^^^^^^^^^^^
+Wrong interface？
+^^^^^^^^^^^^^^^^^
 
 .. code-block::
 

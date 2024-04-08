@@ -8,4 +8,5 @@ TAPRIO
     TAPRIO on computer with Intel Corporation I210 Gigabit
     TAPRIO on Docker
     TAPRIO on Kata Container
+    TAPRIO on Zenoh
     TAPRIO experiment/index

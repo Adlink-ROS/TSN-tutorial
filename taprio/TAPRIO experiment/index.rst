@@ -8,3 +8,4 @@ TAPRIO experiment
     Method of Measuring Round Trip Time
     PTP
     Experiment: Round Trip Time on TAPRIO
+    Experiment: TAPRIO on Zenoh

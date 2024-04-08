@@ -15,7 +15,7 @@ To enable VLAN PCP tagging, a virtual VLAN device is created atop of a physical 
 Packets going out from the VLAN device are encapsulated with a VLAN header.
 Let's start with a network of Alice and Bob.
 
-.. code-block:: mermaid
+.. mermaid::
 
    flowchart TB
        subgraph peer2 ["Bob"]

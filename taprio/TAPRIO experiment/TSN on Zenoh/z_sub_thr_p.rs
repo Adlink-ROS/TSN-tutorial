@@ -66,7 +66,6 @@ impl Stats {
         let elapsed = self.round_start.elapsed().as_secs_f64();
         let throughput = (self.round_size as f64) / elapsed;
         println!("Priority {}: {throughput} msg/s", self.priority);
-        //let mut file = File::create(&self.path)?;
         let mut file = OpenOptions::new()
         .create(true)
         .append(true)
@@ -93,7 +92,6 @@ impl Drop for Stats {
         let total = self.round_size * self.finished_rounds + self.round_count;
         let throughtput = total as f64 / elapsed;
         self.print_throughputs();
-        //println!("Received {total} messages over {elapsed:.2}s: {throughtput}msg/s");
     }
 }
 
@@ -110,8 +108,6 @@ fn main() {
     config.transport.shared_memory.set_enabled(true).unwrap();
     let session = zenoh::open(config).res().unwrap();
     let session = session.into_arc();
-    // Store thread handles and stats for each priority
-    //let mut stats_receivers: Vec<mpsc::Receiver<Stats>> = Vec::new();
 
 
     if let Some(priorities) = args.priority {
@@ -119,8 +115,6 @@ fn main() {
             let prio_str_clone = prio_str.clone();
             let session_clone = session.clone();
             let file_path_clone=args.file_path.clone();
-            //let (stats_sender, stats_receiver) = mpsc::channel();
-            //stats_receivers.push(stats_receiver);
             let thread_handle = thread::spawn(move || {
             let topic = format!("test{}/thr", prio_str);
             println!("topic: {topic}");

@@ -18,17 +18,11 @@ use zenoh::prelude::sync::*;
 use zenoh::publication::CongestionControl;
 use zenoh_examples::CommonArgs;
 use std::thread;
-//use zenoh::prelude::r#async::*;
 
 fn main() {
     // initiate logging
     env_logger::init();
     let args = Args::parse();
-
-    // let mut prio = Priority::default();
-    // if let Some(p) = args.priority {
-    //     prio = p.try_into().unwrap();
-    // }
 
     let payload_size = args.payload_size;
 
@@ -45,7 +39,7 @@ fn main() {
         for prio_str in priorities {
             let session_clone = session.clone();
             let data_clone = data.clone(); // Clone the data for each thread
-            //let common_args_clone = args.common.clone(); // Clone common arguments for each thread
+            
             let thread_handle = thread::spawn(move || {
                 
                 // Parse priority from string to u8
@@ -89,7 +83,6 @@ struct Args {
     /// Priority for sending data
     #[arg(short, long, value_delimiter = ' ')]
     priority: Option<Vec<String>>, // Change type to Vec<String>
-    //priority: Option<Vec<u8>>,
     /// Print the statistics
     #[arg(short = 't', long)]
     print: bool,

@@ -1,4 +1,4 @@
-### Kata Container
+# Kata Container
 
 Kata seems to support TSN, so we tried to use Kata, and failed.
 
@@ -14,7 +14,7 @@ All the content in links required for installing packages of version 1.x have be
 
 Kata Containers requires nested virtualization or bare metal.
 
-### Install on Fedora38
+## Install on Fedora38
 
 installation guide:
 https://github.com/kata-containers/kata-containers/blob/main/docs/how-to/containerd-kata.md#install-cri-tools

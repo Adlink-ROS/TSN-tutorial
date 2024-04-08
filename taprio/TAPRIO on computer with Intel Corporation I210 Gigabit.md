@@ -24,7 +24,7 @@ Combined:	4
 Have 4 channels.
 
 
-## Some issue during experiment (一些坑)
+## Some issue during experiment
 
 ### Cannot detect interface
 
